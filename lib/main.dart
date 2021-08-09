@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/answer.dart';
+import 'package:flutter_test_app/question.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,22 +10,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var question = [
+  var _question = [
     'What\'s your favorite color?',
     'What\'s your favorite animal?'
   ];
 
-  var questionIndex = 0;
+  var _questionIndex = 0;
 
-  void answerQuestion() {
+  void _answerQuestion() {
     print("Answer chosen");
-    if (questionIndex + 1 < question.length) {
+    if (_questionIndex + 1 < _question.length) {
       setState(() {
-        questionIndex += 1;
+        _questionIndex += 1;
       });
     } else {
       setState(() {
-        questionIndex -= 1;
+        _questionIndex -= 1;
       });
     }
   }
@@ -31,26 +33,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
             title: Text("My Flutter App"),
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.blue,
           ),
           body: Column(
             children: [
-              Text(question[questionIndex]),
-              RaisedButton(
-                onPressed: answerQuestion,
-                child: Text("Answer 1"),
-              ),
-              RaisedButton(
-                onPressed: answerQuestion,
-                child: Text("Answer 2"),
-              ),
-              RaisedButton(
-                onPressed: answerQuestion,
-                child: Text("Answer 3"),
-              ),
+              Question(_question[_questionIndex]),
+              Answer(_answerQuestion),
+              Answer(_answerQuestion),
+              Answer(_answerQuestion),
+
             ],
           )),
     );
