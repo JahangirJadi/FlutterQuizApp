@@ -8,8 +8,10 @@ class Question extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 80.0,
       width: double.infinity,
       margin: EdgeInsets.all(16),
+      alignment: Alignment.center,
       child: Text(
         questionText,
         style: TextStyle(
