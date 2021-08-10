@@ -13,39 +13,57 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Blue', 'Black', 'Orange', 'Purple']
+      'answers': [
+        {'text': 'Blue', 'score': 2},
+        {'text': 'White', 'score': 1},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Black', 'score': 10}
+      ]
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Cat', 'Dog', 'Elephant', 'Horse']
+      'answers': [
+        {'text': 'Cat', 'score': 3},
+        {'text': 'Dog', 'score': 1},
+        {'text': 'Elephant', 'score': 4},
+        {'text': 'Horse', 'score': 5}
+      ]
     },
     {
       'questionText': 'What\'s your favorite bird?',
-      'answers': ['Parrot', 'Pigeon', 'Penguins', 'Sparrow']
+      'answers': [
+    {'text':'Parrot', 'score':4},
+    {'text':'Pigeon', 'score':3},
+    {'text':'Penguin', 'score':2},
+    {'text':'Sparrow', 'score':1}
+      ]
     },
     {
       'questionText': 'What\'s your favorite movie?',
       'answers': [
-        'Mission Impossible',
-        'Pirates of the Caribbean',
-        'Terminator',
-        'Fast and the Furious',
-        'Resident Evil'
+        {'text':'Mission Impossible', 'score':1},
+        {'text':'Pirates of the Caribbean', 'score':4},
+        {'text':'Terminator', 'score':5},
+        {'text':'Fast and the Furious', 'score':7},
+        {'text':'Resident Evil', 'score':3}
       ]
     },
   ];
 
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _restart() {
+  void _resetQuiz() {
     setState(() {
       _questionIndex = 0;
+      _totalScore = 0;
       print("INDEX :::$_questionIndex");
     });
     print("INDEX out :::$_questionIndex");
   }
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore += score;
     print("Answer chosen");
     if (_questionIndex < _questions.length) {
       setState(() {
@@ -69,13 +87,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: _questionIndex < _questions.length
             ? Quiz(_questions, _answerQuestion, _questionIndex)
-            : Center(
-              child: RaisedButton(
-                  child: Text("Restart Quiz", style: TextStyle(color: Colors.white),),
-                  color: Colors.blue,
-                  onPressed:  _restart,
-                ),
-            ),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
